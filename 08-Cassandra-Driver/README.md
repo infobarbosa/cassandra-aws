@@ -9,40 +9,40 @@ Conhecendo o driver para Cassandra
 Executar uma aplicação cliente Cassandra escrita em Python e observar os principais parâmetros oferecidos pelo driver.
 
 ### CREATE KEYSPACE
-```plain
+```
 cqlsh -e "CREATE KEYSPACE infobarbank5 \
     WITH replication = { \
         'class': 'SimpleStrategy', \
         'replication_factor': 1 \
     };"
-```{{exec}}
+```
 
 ### Instalando o driver
-```plain
+```
 pip install cassandra-driver
-```{{exec}}
+```
 
 ### Iniciando o python3
-```plain
+```
 python3
-```{{exec}}
+```
 
 ### Criando uma sessão
-```plain
+```
 from cassandra.cluster import Cluster
 
 cluster = Cluster(['127.0.0.1'])
 session = cluster.connect('infobarbank5')
-```{{exec}}
+```
 
 ### CREATE TABLE
-```plain
+```
 rows = session.execute('CREATE TABLE infobarbank5.cliente(id uuid PRIMARY KEY, cpf text, nome text);')
 
-```{{exec}}
+```
 
 ### INSERT
-```plain
+```
 session.execute("insert into infobarbank5.cliente(id, cpf, nome) VALUES(2b167754-1017-11ed-861d-0242ac120002, '***.790.738-**', 'SIDINEIDE NONATO DE SA');")
 
 session.execute("insert into infobarbank5.cliente(id, cpf, nome) VALUES(2b1678f8-1017-11ed-861d-0242ac120002, '***.416.131-**', 'NEUZA EVANGELISTA FERREIRA');")
@@ -64,46 +64,46 @@ session.execute("insert into infobarbank5.cliente(id, cpf, nome) VALUES(2b1696a8
 session.execute("insert into infobarbank5.cliente(id, cpf, nome) VALUES(2b16989c-1017-11ed-861d-0242ac120002, '***.881.955-**', 'LUCILIA ROSA LIMA PEREIRA');")
 
 session.execute("insert into infobarbank5.cliente(id, cpf, nome) VALUES(2b169a2c-1017-11ed-861d-0242ac120002, '***.580.583-**', 'FRANCISCA SANDRA FEITOSA');")
-```{{exec}}
+```
 
 ### SELECT
-```plain
+```
 rows = session.execute('SELECT id, cpf, nome FROM cliente')
 
 for cliente in rows:
     print (cliente.nome)
 
-```{{exec}}
+```
 
 
 ### UPDATE
-```plain
+```
 session.execute("UPDATE infobarbank5.cliente SET nome = 'DAVE BRUBECK' WHERE id = 2b164bd0-1017-11ed-861d-0242ac120002")
-```{{exec}}
+```
 
-```plain
+```
 rows = session.execute('SELECT id, cpf, nome FROM cliente WHERE id = 2b164bd0-1017-11ed-861d-0242ac120002')
 
 for cliente in rows:
     print (cliente.nome)
 
-```{{exec}}
+```
 
 ### DELETE
-```plain
+```
 session.execute("DELETE FROM infobarbank5.cliente WHERE id = 2b164bd0-1017-11ed-861d-0242ac120002")
-```{{exec}}
+```
 
-```plain
+```
 rows = session.execute('SELECT id, cpf, nome FROM cliente WHERE id = 2b164bd0-1017-11ed-861d-0242ac120002')
 
 for cliente in rows:
     print (cliente.nome)
 
-```{{exec}}
+```
 
 ### Prepared Statements
-```plain
+```
 import uuid
 
 id_cliente = uuid.UUID('2b167bbe-1017-11ed-861d-0242ac120002')
@@ -113,4 +113,4 @@ cliente = session.execute(meu_stmt, [id_cliente])
 
 print( cliente.one().nome )
 
-```{{exec}}
+```

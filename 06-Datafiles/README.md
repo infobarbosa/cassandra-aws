@@ -12,14 +12,14 @@ A cada etapa vamos executar o comando `nodetool flush` e então observar como o 
 
 
 Navegue para o diretório `/var/lib/cassandra/data`, local padrão de armazenamento de dados do Cassandra. 
-```plain
+```
 cd /var/lib/cassandra/data
-```{{exec}}
+```
 
 Liste os arquivos e subdiretórios presentes:
-```plain
+```
 ls -la
-```{{exec}}
+```
 
 Output:
 ```
@@ -37,31 +37,31 @@ ubuntu $
 Perceba que o diretório `/var/lib/cassandra/data` contém apenas subdiretórios de sistema.<br>
 
 ### CREATE KEYSPACE
-```plain
+```
 cqlsh -e "CREATE KEYSPACE infobarbank3
             WITH replication = {
                 'class': 'SimpleStrategy',
                 'replication_factor': 1};"
-```{{exec}}
+```
 
-```plain
+```
 ls -la
-```{{exec}}
+```
 Perceba que o output não mudou, mesmo após termos executado o comando `create keyspace ...`.<br>
 
 Agora vamos criar uma tabela na Tab 1.
 ### `cqlsh` CREATE TABLE
-```plain
+```
 cqlsh -e "CREATE TABLE infobarbank3.cliente(
             id uuid PRIMARY KEY,
             cpf text,
             nome text);"
-```{{exec}}
+```
 
 ### DESCRIBE TABLE
-```plain
+```
 cqlsh -e "DESCRIBE TABLE infobarbank3.cliente;"
-```{{exec}}
+```
 
 O output deve ser algo assim:
 ```
@@ -90,9 +90,9 @@ CREATE TABLE infobarbank3.cliente (
 Se você obteve o output acima então a tabela foi criada corretamente.
 
 Agora vamos voltar ao `bash` e verificar o que ocorreu em disco.
-```plain
+```
 ls -la
-```{{exec}}
+```
 
 Output:
 ```
@@ -111,18 +111,18 @@ ubuntu $
 
 Perceba que o diretório da keyspace só foi criado em disco após criarmos efetivamente uma tabela.<br>
 Vamos navegar para o diretório `/var/lib/cassandra/data/infobarbank3`:
-```plain
+```
 cd /var/lib/cassandra/data/infobarbank3
-```{{exec}}
+```
 
 Listando os subdiretórios
-```plain
+```
 pwd
-```{{exec}}
+```
 
-```plain
+```
 ls -la
-```{{exec}}
+```
 Output:
 ```
 ubuntu $ pwd
@@ -139,17 +139,17 @@ drwxr-xr-x 3 cassandra cassandra 4096 Dec 18 23:58 cliente-debd45d07f2f11edb98d1
 > Perceba que foi criado um diretório com o nome da tabela (cliente) concatenado com um UUID aleatório.
 Vamos verificar os objetos dentro desse diretório:
 
-```plain
+```
 cd $(eval ls)
-```{{exec}}
+```
 
-```plain
+```
 pwd
-```{{exec}}
+```
 
-```plain
+```
 ls -latr
-```{{exec}}
+```
 
 Output:
 ```
@@ -165,7 +165,7 @@ Agora vamos executar um primeiro lote de inserções na tabela.
 
 ### `cqlsh` INSERT
 Inserindo primeiro lote de registros
-```plain
+```
 cqlsh -e "
 insert into infobarbank3.cliente(id, cpf, nome) VALUES(2b162060-1017-11ed-861d-0242ac120002, '***.568.112-**', 'MARIVALDA KANAMARY');
 insert into infobarbank3.cliente(id, cpf, nome) VALUES(2b16242a-1017-11ed-861d-0242ac120002, '***.150.512-**', 'JUCILENE MOREIRA CRUZ');
@@ -178,24 +178,24 @@ insert into infobarbank3.cliente(id, cpf, nome) VALUES(2b163cda-1017-11ed-861d-0
 insert into infobarbank3.cliente(id, cpf, nome) VALUES(2b163dde-1017-11ed-861d-0242ac120002, '***.655.193-**', 'BRUNA DE BRITO PAIVA');
 insert into infobarbank3.cliente(id, cpf, nome) VALUES(2b163ed8-1017-11ed-861d-0242ac120002, '***.708.013-**', 'LUCILENE PAULO BARBOSA');"
 
-```{{exec}}
+```
 
-```plain
+```
 cqlsh -e "SELECT COUNT(1) 
           FROM infobarbank3.cliente;"
 
-```{{exec}}
+```
 
-```plain
+```
 ls -la
-```{{exec}}
+```
 
 Provavelmente não houve alteração na disposição dos arquivos.
 Agora vamos forçar o flush da **memtable** para o disco:
-```plain
+```
 nodetool flush
 
-```{{exec}}
+```
 
 Após a execução de `nodetool flush`, uma nova listagem de arquivos (`ls -la`) terá um output como:
 ```
@@ -218,9 +218,9 @@ ubuntu $
 Perceba que vários arquivos de dados foram criados. A importância de cada um será explicada em sala de aula.
 
 Por ora vamos examinar o arquivo `nb-1-big-Data.db`:
-```plain
+```
 cat nb-1-big-Data.db
-```{{exec}}
+```
 
 O output será parecido com isso:
 ```

@@ -4,14 +4,14 @@ Contact: infobarbosa@gmail.com<br>
 Github: [infobarbosa](https://github.com/infobarbosa)
 
 Criando uma keyspace simples:
-```plain
+```
 cqlsh -e "
   CREATE KEYSPACE infobarbank1
       WITH REPLICATION = {
           'class' : 'SimpleStrategy', 
           'replication_factor':1  
       };"
-```{{exec}}
+```
 
 Uma `keyspace` é um repositório lógico para tabelas. <br>
 Em outros bancos de dados é equivalente a um schema ou database.<br>
@@ -20,7 +20,7 @@ A sintaxe para criação de uma keyspace é:
 ```
 CREATE  KEYSPACE [IF NOT EXISTS] keyspace_name 
    WITH REPLICATION = { 
-      'class' : 'SimpleStrategy', 'replication_factor' : N } 
+      'class' : 'SimpleStrategy', 'replication_factor' : N  
      | 'class' : 'NetworkTopologyStrategy', 
        'dc1_name' : N [, ...] 
    }
@@ -33,9 +33,9 @@ A segmentação facilita a administração das aplicações.
 
 ### Descrevendo keyspaces
 Caso você queira saber a definição de uma `keyspace`, é possível via comando `describe`:
-```plain
+```
 cqlsh -e "describe keyspace infobarbank1;"
-```{{exec}}
+```
 
 ### Outros exemplos
 

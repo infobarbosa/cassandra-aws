@@ -17,29 +17,29 @@ Essa etapa só é necessária se você não instalou o Cassandra antes nesse hos
 
 ```
 sudo snap install cqlsh
-```{{exec}}
+```
 
 ### Inspecionando `compose.yaml`
-```plain
+```
 ls -latr compose.yaml
 
 cat compose.yaml
 
-```{{exec}}
+```
 
 ### Inicializando o cluster
 Por comodidade e também restrição de recursos de cpu e memória do nosso laboratório, vamos inicializar um cluster com apenas 2 nós.
-```plain
+```
 docker compose up -d
 
-```{{exec}}
+```
 
 Atenção! Em função das restrições de recursos, a inicialização deve demorar
 
 Pra verificar as instâncias em funcionamento via docker, execute o comando:
 ```
 docker stats
-```{{exec}}
+```
 
 Output:
 ```
@@ -51,15 +51,15 @@ ecef529adeab   infobarbankdb-cassandra2-1   1.76%     645MiB / 768MiB     83.99%
     Para sair precione Ctrl+C
 
 Para verificar o status de inicialização, execute o seguinte:
-```plain
+```
 docker exec -it infobarbankdb-cassandra2-1 /bin/bash
 
-```{{exec}}
+```
 
-```plain
+```
 nodetool status
 
-```{{exec}}
+```
 
 Output:
 ```
@@ -82,13 +82,13 @@ UN  172.18.0.2  109.41 KiB  16      100.0%            bd56f53c-676f-4e16-b43b-5f
 
 ### CREATE KEYSPACE
 Primeiro vamos fazer um teste, criar uma keyspace com fator de replicação maior que o número de nós:
-```plain
+```
 cqlsh -e "CREATE KEYSPACE teste WITH replication = {'class': 'SimpleStrategy', 'replication_factor': 3 }" 172.18.0.2
 
-```{{exec}}
+```
 
 Output:
-```plain
+```
 ubuntu $ cqlsh -e "CREATE KEYSPACE teste WITH replication = {'class': 'SimpleStrategy', 'replication_factor': 3 }" 172.18.0.2
 
 Warnings :
@@ -98,28 +98,28 @@ Your replication factor 3 for keyspace teste is higher than the number of nodes 
 Esse resultado é relativamente óbvio. Ou seja, não é possível ter mais réplicas do que o número de nós disponível.
 
 Vamos tentar novamente, desta vez com um número menor de fator de replicação:
-```plain
+```
 cqlsh -e "CREATE KEYSPACE teste WITH replication = {'class': 'SimpleStrategy', 'replication_factor': 3 }" 172.18.0.2
 
-```{{exec}}
+```
 
 Agora vamos criar uma tabela "t1" e inserir alguns valores
-```plain
+```
 cqlsh 172.18.0.2
 
-```{{exec}}
+```
 
-```plain
+```
 USE teste;
 
-```{{exec}}
+```
 
-```plain
+```
 create table t1(c1 text primary key, c2 text);
 
-```{{exec}}
+```
 
-```plain
+```
 insert into t1(c1, c2) values('1', 'valor 1');
 insert into t1(c1, c2) values('2', 'valor 2');
 insert into t1(c1, c2) values('3', 'valor 3');
@@ -130,21 +130,21 @@ insert into t1(c1, c2) values('7', 'valor 7');
 insert into t1(c1, c2) values('8', 'valor 8');
 insert into t1(c1, c2) values('9', 'valor 9');
 
-```{{exec}}
+```
 
 Saia do `cqlsh`
 
 >> Atenção! Cuidado para executar `exit` apenas no `cqlsh` e não no bash. Ao sair do ubuntu sua sessão Killercoda é terminada e você deverá iniciar novamente o laboratório.
 
-```plain
+```
 exit
-```{{exec}}
+```
 
 
 ### Verificando tokens
-```plain
+```
 nodetool ring
-```{{exec}}
+```
 
 Output:
 ```
@@ -161,9 +161,9 @@ Address          Rack        Status State   Load            Owns                
 172.18.0.3       rack1       Up     Normal  80.54 KiB       51.15%              -6545462626848804773 
 ```
 
-```plain
+```
 nodetool describering -- teste
-```{{exec}}
+```
 
 Output
 ```
@@ -181,46 +181,46 @@ TokenRange:
 
 ###
 Vamos seguir com a criação da keyspace `infobarbank`:
-```plain
+```
 cqlsh -e "CREATE KEYSPACE infobarbank WITH replication = {'class': 'SimpleStrategy', 'replication_factor': 1 }"
 
-```{{exec}}
+```
 
 Saia do container:
-```plain
+```
 exit
 
-```{{exec}}
+```
 
 ### Instalando o driver
-```plain
+```
 pip install cassandra-driver
 
-```{{exec}}
+```
 
 ### Iniciando o python
-```plain
+```
 python
 
-```{{exec}}
+```
 
 ### Criando uma sessão
-```plain
+```
 from cassandra.cluster import Cluster
 
 cluster = Cluster(['172.18.0.2', '172.18.0.3'])
 session = cluster.connect('infobarbank')
 
-```{{exec}}
+```
 
 ### CREATE TABLE
-```plain
+```
 rows = session.execute('CREATE TABLE infobarbank.cliente(id uuid PRIMARY KEY, cpf text, nome text);')
 
-```{{exec}}
+```
 
 ### INSERT
-```plain
+```
 
 session.execute("insert into infobarbank.cliente(id, cpf, nome) VALUES(2b167754-1017-11ed-861d-0242ac120002, '***.790.738-**', 'SIDINEIDE NONATO DE SA');")
 
@@ -243,20 +243,20 @@ session.execute("insert into infobarbank.cliente(id, cpf, nome) VALUES(2b1696a8-
 session.execute("insert into infobarbank.cliente(id, cpf, nome) VALUES(2b16989c-1017-11ed-861d-0242ac120002, '***.881.955-**', 'LUCILIA ROSA LIMA PEREIRA');")
 
 session.execute("insert into infobarbank.cliente(id, cpf, nome) VALUES(2b169a2c-1017-11ed-861d-0242ac120002, '***.580.583-**', 'FRANCISCA SANDRA FEITOSA');")
-```{{exec}}
+```
 
 ### SELECT
-```plain
+```
 rows = session.execute('SELECT id, cpf, nome FROM cliente')
 
 for cliente in rows:
     print (cliente.nome)
 
-```{{exec}}
+```
 
 
 ### UPDATE
-```plain
+```
 session.execute("UPDATE infobarbank.cliente SET nome = 'DAVE BRUBECK' WHERE id = 2b164bd0-1017-11ed-861d-0242ac120002")
 
 rows = session.execute('SELECT id, cpf, nome FROM cliente WHERE id = 2b164bd0-1017-11ed-861d-0242ac120002')
@@ -264,10 +264,10 @@ rows = session.execute('SELECT id, cpf, nome FROM cliente WHERE id = 2b164bd0-10
 for cliente in rows:
     print (cliente.nome)
 
-```{{exec}}
+```
 
 ### DELETE
-```plain
+```
 session.execute("DELETE FROM infobarbank.cliente WHERE id = 2b164bd0-1017-11ed-861d-0242ac120002")
 
 rows = session.execute('SELECT id, cpf, nome FROM cliente WHERE id = 2b164bd0-1017-11ed-861d-0242ac120002')
@@ -275,4 +275,4 @@ rows = session.execute('SELECT id, cpf, nome FROM cliente WHERE id = 2b164bd0-10
 for cliente in rows:
     print (cliente.nome)
 
-```{{exec}}
+```

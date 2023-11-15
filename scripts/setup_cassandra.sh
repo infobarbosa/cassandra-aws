@@ -103,7 +103,7 @@ cqlsh -e "
 
 cqlsh -e "
   COPY infobarbank.lancamentos_cartao_credito (id_cliente,competencia,data_hora,id_produto,status,tipo_lancamento,id,estabelecimento,valor)
-  FROM '/tmp/lancamentos_cc.csv' 
+  FROM './dataset/lancamentos_cc.csv' 
   WITH DELIMITER=',' AND HEADER=TRUE;"
 
 #########################################################
@@ -126,7 +126,7 @@ cqlsh -e "
 
 cqlsh -e "
   COPY infobarbank.lancamentos_por_status (id_cliente,competencia,data_hora,id_produto,status,tipo_lancamento,id,estabelecimento,valor)
-  FROM '/tmp/lancamentos_cc.csv' 
+  FROM './dataset/lancamentos_cc.csv' 
   WITH DELIMITER=',' AND HEADER=TRUE;"
 
 #########################################################
@@ -149,7 +149,7 @@ cqlsh -e "
 
 cqlsh -e "
   COPY infobarbank.lancamentos_por_periodo (id_cliente,competencia,data_hora,id_produto,status,tipo_lancamento,id,estabelecimento,valor)
-  FROM '/tmp/lancamentos_cc.csv' 
+  FROM './dataset/lancamentos_cc.csv' 
   WITH DELIMITER=',' AND HEADER=TRUE;"
 
 #########################################################
@@ -171,7 +171,7 @@ cqlsh -e "
 
 cqlsh -e "
   COPY infobarbank.lancamentos_por_produto (id_cliente,competencia,data_hora,id_produto,status,tipo_lancamento,id,estabelecimento,valor)
-  FROM '/tmp/lancamentos_cc.csv' 
+  FROM './dataset/lancamentos_cc.csv' 
   WITH DELIMITER=',' AND HEADER=TRUE;"
 
 #########################################################
@@ -193,7 +193,7 @@ cqlsh -e "
 
 cqlsh -e "
   COPY infobarbank.lancamentos_por_tipo (id_cliente,competencia,data_hora,id_produto,status,tipo_lancamento,id,estabelecimento,valor)
-  FROM '/tmp/lancamentos_cc.csv' 
+  FROM './dataset/lancamentos_cc.csv' 
   WITH DELIMITER=',' AND HEADER=TRUE;"
 
 #########################################################
@@ -214,7 +214,7 @@ cqlsh -e "
 
 cqlsh -e "
   COPY infobarbank.lancamentos_detalhe (id_cliente,competencia,data_hora,id_produto,status,tipo_lancamento,id,estabelecimento,valor)
-  FROM '/tmp/lancamentos_cc.csv' 
+  FROM './dataset/lancamentos_cc.csv' 
   WITH DELIMITER=',' AND HEADER=TRUE;"
 
 #########################################################

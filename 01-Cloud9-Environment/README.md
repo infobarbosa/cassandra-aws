@@ -59,9 +59,9 @@ Neste laboratório faremos uso recorrente do serviço Cloud9.
 
 ![img/010_cloud9_tela_criar_ambiente_tipo_ambiente.png](img/010_cloud9_tela_criar_ambiente_tipo_ambiente.png)
 
-9. **Tipo instância**: selecione `t3.small`
+9. **Tipo instância**: selecione `t3.large`
 
-![img/011_cloud9_tela_criar_ambiente_tipo_instancia_t3.small.png](img/011_cloud9_tela_criar_ambiente_tipo_instancia_t3.small.png)
+![img/011_cloud9_tela_criar_ambiente_tipo_instancia_t3.large.png](img/011_cloud9_tela_criar_ambiente_tipo_instancia_t3.large.png)
 
 10. **Plataforma**: selecione `Ubuntu Server 22.04 LTS` 
 
@@ -95,24 +95,21 @@ Ao ser criado, seu ambiente aparece no console do Cloud9
 16. Clone do git deste laboratório:
 
 ```
-git clone https://github.com/infobarbosa/bootcamp_advanced_data_engineering.git
+git clone https://github.com/infobarbosa/cassandra-aws.git
 ```
 ![img/019_cloud9_clone_git.png](img/019_cloud9_clone_git.png)
 
 
-17. Navegue para o diretório ` bootcamp_advanced_data_engineering/scripts/`:
+17. Navegue para o diretório raiz do projeto:
 
 ```
-cd bootcamp_advanced_data_engineering/scripts/
+cd cassandra-aws/
+```
 
+18. Execute o script `setup_cloud9_env.sh` conforme a seguir:
 ```
-![img/020_cloud9_cd_scripts.png](img/020_cloud9_cd_scripts.png)
-
-18. Execute o script `lab_setup.sh` conforme a seguir:
+sh scripts/setup_cloud9_env.sh
 ```
-sh lab_setup.sh
-```
-![img/021_cloud9_sh_lab_setup.png](img/021_cloud9_sh_lab_setup.png)
 
 Esse script executa algumas tarefas administrativas importantes para esse laboratório.
 - atualização de pacotes
@@ -120,8 +117,30 @@ Esse script executa algumas tarefas administrativas importantes para esse labora
 - instalação do boto3
 - redimensionamento de disco
 
+O output será algo assim:
+
+```
+voclabs:~/environment $ cd cassandra-aws/
+voclabs:~/environment/cassandra-aws (main) $ sh scripts/setup_cloud9_env.sh
+### Atualizando o sistema ###
+Get:1 http://us-east-1.ec2.archive.ubuntu.com/ubuntu jammy InRelease [270 kB]
+Get:2 http://security.ubuntu.com/ubuntu jammy-security InRelease [110 kB]       
+...
+```
 19. Ao término da execução, é possível conferir o tamanho do disco através do comando `df -h`:
 
-![img/022_cloud9_df_h.png](img/022_cloud9_df_h.png)
+Output:
+
+```
+voclabs:~/environment/cassandra-aws (main) $ df -h
+Filesystem       Size  Used Avail Use% Mounted on
+/dev/root        146G  6.6G  139G   5% /
+tmpfs            3.9G     0  3.9G   0% /dev/shm
+tmpfs            1.6G  876K  1.6G   1% /run
+tmpfs            5.0M     0  5.0M   0% /run/lock
+/dev/nvme0n1p15  105M  6.1M   99M   6% /boot/efi
+tmpfs            784M  4.0K  784M   1% /run/user/1000
+voclabs:~/environment/cassandra-aws (main) $ 
+```
 
 Parabéns! Seu ambiente Cloud9 está pronto pra uso!

@@ -6,29 +6,29 @@ Github: [infobarbosa](https://github.com/infobarbosa)
 Nesse laboratório vamos trabalhar com tabelas do Cassandra.
 
 Crie uma nova **keyspace** para este lab:
-```plain
+```
 cqlsh -e "
     CREATE KEYSPACE infobarbank2
         WITH REPLICATION = {
             'class' : 'SimpleStrategy', 
             'replication_factor':1  
         };"
-```{{exec}}
+```
 
 ### CREATE TABLE
-```plain
+```
 cqlsh -e "
     CREATE TABLE infobarbank2.cliente(
         id uuid PRIMARY KEY, 
         cpf text, 
         nome text
     );"
-```{{exec}}
+```
 
 ### DESCRIBE TABLE
-```plain
+```
 cqlsh -e "DESCRIBE TABLE infobarbank2.cliente;"
-```{{exec}}
+```
 
 O output deve ser algo assim:
 ```
@@ -55,7 +55,7 @@ CREATE TABLE infobarbank2.cliente (
 ```
 
 ### INSERT
-```plain
+```
 cqlsh -e "
     INSERT INTO infobarbank2.cliente(
         id, 
@@ -67,22 +67,22 @@ cqlsh -e "
         '11111111111', 
         'marcelo barbosa'
     );"
-```{{exec}}
+```
 
 ### SELECT
-```plain
+```
 cqlsh -e "
     SELECT * 
     FROM infobarbank2.cliente;"
-```{{exec}}
+```
 
 ##### Busca pela chave
-```plain
+```
 cqlsh -e "
     SELECT * 
     FROM infobarbank2.cliente 
     WHERE id = 6ad8b386-1015-11ed-861d-0242ac120002;"
-```{{exec}}
+```
 Output:
 ```
  id                                   | cpf         | nome
@@ -91,12 +91,12 @@ Output:
 ```
 
 ##### Busca por um campo não-chave
-```plain
+```
 cqlsh -e "
     SELECT * 
     FROM infobarbank2.cliente 
     WHERE nome = 'marcelo barbosa';"
-```{{exec}}
+```
 
 Output:
 ```
@@ -104,64 +104,64 @@ InvalidRequest: Error from server: code=2200 [Invalid query] message="Cannot exe
 ```
 
 ### UPDATE
-```plain
+```
 cqlsh -e "
     UPDATE infobarbank2.cliente 
     SET nome = 'marcelo b.' 
     WHERE id = 6ad8b386-1015-11ed-861d-0242ac120002;"
-```{{exec}}
+```
 
 Conferindo:
-```plain
+```
 cqlsh -e "
     SELECT * 
     FROM infobarbank2.cliente 
     WHERE id = 6ad8b386-1015-11ed-861d-0242ac120002;"
-```{{exec}}
+```
 
 ### DELETE
-```plain
+```
 cqlsh -e "
     DELETE FROM infobarbank2.cliente 
     WHERE id = 6ad8b386-1015-11ed-861d-0242ac120002;"
-```{{exec}}
+```
 
 ### TRUNCATE TABLE
-```plain
+```
 cqlsh -e "TRUNCATE TABLE infobarbank2.cliente;"
-```{{exec}}
+```
 
 ### DROP TABLE
-```plain
+```
 cqlsh -e "DROP TABLE infobarbank2.cliente;"
-```{{exec}}
+```
 
 
 ### JUNÇÕES
 
 Vamos recriar a tabela `cliente` e adicionalmente criar outra tabela `pedido`:
-```plain
+```
 cqlsh -e "
     CREATE TABLE infobarbank2.cliente(
         id int PRIMARY KEY, 
         cpf text, 
         nome text
     );"
-```{{exec}}
+```
 
-```plain
+```
 cqlsh -e "DESCRIBE TABLE infobarbank2.cliente;"
-```{{exec}}
+```
 
-```plain
+```
 cqlsh -e "
     INSERT INTO infobarbank2.cliente(id, cpf, nome) 
     VALUES (10, '11111111111', 'marcelo barbosa');"
-```{{exec}}
+```
 
-```plain
+```
 cqlsh -e "select * from infobarbank2.cliente;"
-```{{exec}}
+```
 
 Output:
 ```
@@ -173,7 +173,7 @@ cqlsh> select * from infobarbank2.cliente ;
 ```
 
 ##### Criando a tabela `pedido`
-```plain
+```
 cqlsh -e "
     CREATE TABLE infobarbank2.pedido(
         id          int PRIMARY KEY, 
@@ -183,21 +183,21 @@ cqlsh -e "
         endereco    text,
         item        text
     );"
-```{{exec}}
+```
 
 ```
 cqlsh -e "DESCRIBE TABLE infobarbank2.pedido;"
-```{{exec}}
+```
 
-```plain
+```
 cqlsh -e "
     INSERT INTO infobarbank2.pedido(id, id_cliente, data, valor, endereco, item) 
     VALUES (123, 10, '2023-02-01', 30.00, 'Rua Cassandra, No.9042, Bairro NoSQL', 'Camiseta');"
-```{{exec}}
+```
 
-```plain
+```
 cqlsh -e "select * from infobarbank2.pedido;"
-```{{exec}}
+```
 
 Output:
 ```
@@ -211,12 +211,12 @@ cqlsh> select * from infobarbank2.pedido ;
 ```
 
 Agora queremos executar uma consulta que retorne o CPF do cliente e seus pedidos:
-```plain
+```
 cqlsh -e "
     SELECT cliente.cpf, pedido.id, pedido.data, pedido.item
     FROM cliente JOIN pedido ON cliente.id = pedido.id_cliente
     WHERE cliente.id = 10;"
-```{{exec}}
+```
 
 Output:
 ```
