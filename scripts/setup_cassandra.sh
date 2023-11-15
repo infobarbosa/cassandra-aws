@@ -1,34 +1,34 @@
 #!/bin/sh
-echo "`date -Is` - Instalação iniciada." >> /root/status-instalacao.txt
+echo "`date -Is` - Instalação iniciada." >> /tmp/status-instalacao.txt
 
 #########################################################
 # Cassandra
 #########################################################
 
-echo "`date -Is` - Instalando Java 11." >> /root/status-instalacao.txt
+echo "`date -Is` - Instalando Java 11." >> /tmp/status-instalacao.txt
 sudo apt install -y openjdk-11-jdk-headless
 
 echo "deb https://debian.cassandra.apache.org 41x main" | sudo tee -a /etc/apt/sources.list.d/cassandra.sources.list
 
-echo "`date -Is` - Obtento chaves do repositório." >> /root/status-instalacao.txt
+echo "`date -Is` - Obtento chaves do repositório." >> /tmp/status-instalacao.txt
 curl https://downloads.apache.org/cassandra/KEYS | sudo apt-key add -
 
-echo "`date -Is` - Atualizando a lista de pacotes." >> /root/status-instalacao.txt
+echo "`date -Is` - Atualizando a lista de pacotes." >> /tmp/status-instalacao.txt
 sudo apt-get update -y
 
-echo "`date -Is` - Instalando o Cassandra." >> /root/status-instalacao.txt
+echo "`date -Is` - Instalando o Cassandra." >> /tmp/status-instalacao.txt
 sudo apt install -y cassandra
 
-echo "`date -Is` - Inicializando serviço." >> /root/status-instalacao.txt
+echo "`date -Is` - Inicializando serviço." >> /tmp/status-instalacao.txt
 sudo systemctl start cassandra
 
 #########################################################
 # Esperando o cluster ficar up antes de prosseguir
 #########################################################
-echo "`date -Is` - Inicializando node. Aguarde..." >> /root/status-instalacao.txt
+echo "`date -Is` - Inicializando node. Aguarde..." >> /tmp/status-instalacao.txt
 while ! cqlsh -e 'describe cluster' > /dev/null 2>&1; do sleep 5; done
 
-echo "`date -Is` - Node inicializado. Criando schema." >> /root/status-instalacao.txt
+echo "`date -Is` - Node inicializado. Criando schema." >> /tmp/status-instalacao.txt
 
 #########################################################
 # Keyspace infobarbank
@@ -220,4 +220,4 @@ cqlsh -e "
 #########################################################
 # Finalizando a instalação
 #########################################################
-echo "`date -Is` - Instalação finalizada." >> /root/status-instalacao.txt
+echo "`date -Is` - Instalação finalizada." >> /tmp/status-instalacao.txt
