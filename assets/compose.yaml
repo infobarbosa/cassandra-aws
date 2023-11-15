@@ -1,0 +1,52 @@
+name: infobarbankdb
+services:
+  cassandra1:
+    image: cassandra:latest
+    volumes:
+      - "/var/lib/cassandra/node1:/var/lib/cassandra"
+      - "/var/log/cassandra/node1:/var/log/cassandra"
+    environment:
+      - "MAX_HEAP_SIZE=768M"
+      - "HEAP_NEWSIZE=768M"
+      - "CASSANDRA_SEEDS=cassandra1"
+      - "CASSANDRA_CLUSTER_NAME=infobarbankdb"
+      - "CASSANDRA_DC=BRA-SP-OLTP"
+      - "CASSANDRA_ENDPOINT_SNITCH=GossipingPropertyFileSnitch"
+    expose:
+      - 9042
+    ports:
+      - "19042:9042"
+    deploy:
+      resources:
+        limits:
+          cpus: '0.25'
+          memory: 768M
+        reservations:
+          cpus: '0.25'
+          memory: 768M
+  cassandra2:
+    image: cassandra:latest
+    volumes:
+      - "/var/lib/cassandra/node2:/var/lib/cassandra"
+      - "/var/log/cassandra/node2:/var/log/cassandra"
+    environment:
+      - "MAX_HEAP_SIZE=768M"
+      - "HEAP_NEWSIZE=768M"
+      - "CASSANDRA_SEEDS=cassandra1"
+      - "CASSANDRA_CLUSTER_NAME=infobarbankdb"
+      - "CASSANDRA_DC=BRA-SP-OLTP"
+      - "CASSANDRA_ENDPOINT_SNITCH=GossipingPropertyFileSnitch"
+    depends_on:
+      - cassandra1
+    expose:
+      - 9042
+    ports:
+      - "29042:9042"
+    deploy:
+      resources:
+        limits:
+          cpus: '0.25'
+          memory: 768M
+        reservations:
+          cpus: '0.25'
+          memory: 768M

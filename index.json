@@ -1,0 +1,48 @@
+{
+  "title": "Cassandra (fast track)",
+  "description": "Vamos falar do Cassandra e seu papel no universo de bancos de dados colunares.",
+  "details": {
+    "intro": {
+      "text": "intro.md",
+      "background": "setup.sh"
+    },
+    "steps": [
+      {
+        "text": "step1/install.md"
+      },
+      {
+        "text": "step2/cqlsh.md"
+      },
+      {
+        "text": "step3/keyspaces.md"
+      },
+      {
+        "text": "step4/tables.md"
+      },
+      {
+        "text": "step5/datafiles.md"
+      },
+      {
+        "text": "step6/compaction.md"
+      },
+      {
+        "text": "step7/cassandra-driver.md"
+      },
+      {
+        "text": "step8/cluster.md"
+      }
+    ],
+    "assets": {
+      "host01": [
+        {"file": "compose.yaml", "target": "~/", "chmod": "+w"},
+        {"file": "lancamentos_cc.csv", "target": "/tmp/", "chmod": "+w"}
+      ]
+    },
+    "finish": {
+      "text": "finish.md"
+    }
+  },
+  "backend": {
+    "imageid": "ubuntu"
+  }
+}
