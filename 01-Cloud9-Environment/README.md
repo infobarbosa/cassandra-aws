@@ -67,7 +67,7 @@ Neste laboratório faremos uso recorrente do serviço Cloud9.
 
 ![img/012_cloud9_tela_criar_ambiente_plataforma.png](img/012_cloud9_tela_criar_ambiente_plataforma.png)
 
-11. **Tempo limite**: selecione `1 hora`
+11. **Tempo limite**: selecione `4 horas`
 
 ![img/013_cloud9_tela_criar_ambiente_tempo_limite.png](img/013_cloud9_tela_criar_ambiente_tempo_limite.png)
 
