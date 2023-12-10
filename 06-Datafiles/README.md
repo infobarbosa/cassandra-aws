@@ -51,7 +51,7 @@ ls -la
 ```
 Perceba que o output não mudou, mesmo após termos executado o comando `create keyspace ...`.<br>
 
-Agora vamos criar uma tabela na Tab 1.
+Agora vamos criar uma tabela **`cliente`**.
 ### `cqlsh` CREATE TABLE
 ```
 cqlsh -e "CREATE TABLE infobarbank3.cliente(
