@@ -6,7 +6,7 @@ Github: [infobarbosa](https://github.com/infobarbosa)
 A proposta agora é criar a tabela `cliente` e executar diversas operações de escrita de registros.
 Desta vez, porém, a cada etapa vamos executar o comando `nodetool flush` e então observar o que acontece com os arquivos (sstables).
 
-##### 1o. Ciclo
+## 1o. Ciclo
 
 Criando a keyspace `infobarbank4`:
 ```
@@ -77,7 +77,7 @@ Inspecione o conteúdo da sstable gerada `nb-XX-big-Data.db`:
 cat nb-1-big-Data.db
 ```
 
-##### 2o. Ciclo
+## 2o. Ciclo
 
 Atualizando uma coluna da tabela:
 ```
@@ -115,7 +115,7 @@ cat nb-2-big-Data.db
 
 Apenas o atributo nome com valor *marcelo* foi encontrado.
 
-##### 3o. Ciclo
+## 3o. Ciclo
 
 Atualizando uma coluna da tabela:
 ```
@@ -143,7 +143,7 @@ Inspecione o conteúdo da sstable gerada `nb-XX-big-Data.db`:
 cat nb-3-big-Data.db
 ```
 
-##### 4o. Ciclo
+## 4o. Ciclo
 
 Atualizando uma coluna da tabela:
 ```
@@ -177,7 +177,7 @@ cat nb-5-big-Data.db
 ```
 
 
-##### 5o. Ciclo
+## 5o. Ciclo
 
 Inserindo um novo registro:
 ```
@@ -203,7 +203,7 @@ Inspecione o conteúdo da sstable gerada `nb-XX-big-Data.db`:
 cat nb-6-big-Data.db
 ```
 
-##### 6o. Ciclo
+## 6o. Ciclo
 
 Atualizando uma coluna da tabela:
 ```
@@ -229,7 +229,7 @@ Inspecione o conteúdo da sstable gerada `nb-XX-big-Data.db`:
 cat nb-7-big-Data.db
 ```
 
-##### 7o. Ciclo
+## 7o. Ciclo
 
 Atualizando uma coluna da tabela:
 ```
@@ -257,7 +257,7 @@ Inspecione o conteúdo da sstable gerada `nb-XX-big-Data.db`:
 cat nb-9-big-Data.db
 ```
 
-##### 8o. Ciclo
+## 8o. Ciclo
 
 Atualizando uma coluna da tabela:
 ```
