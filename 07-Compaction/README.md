@@ -6,6 +6,11 @@ Github: [infobarbosa](https://github.com/infobarbosa)
 A proposta agora é criar a tabela `cliente` e executar diversas operações de escrita de registros.
 Desta vez, porém, a cada etapa vamos executar o comando `nodetool flush` e então observar o que acontece com os arquivos (sstables).
 
+De início, vamos navegar para o diretório `/var/lib/cassandra/data`
+```
+cd /var/lib/cassandra/data/
+```
+
 ## 1o. Ciclo
 
 Criando a keyspace `infobarbank4`:
