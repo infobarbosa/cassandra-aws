@@ -66,6 +66,10 @@ Neste laboratório faremos uso recorrente do serviço Cloud9.
 
 ![img/011_cloud9_tela_criar_ambiente_tipo_instancia_t3.large.png](img/011_cloud9_tela_criar_ambiente_tipo_instancia_t3.large.png)
 
+> Atenção!
+> Caso não seja possível criar uma instância `t3.large` ainda é possível escolher um tipo de instância com menos memória e CPU.
+> **Para este laboratório o mínimo possível é `t2.medium`**
+
 10. **Plataforma**: selecione `Ubuntu Server 22.04 LTS` 
 
 ![img/012_cloud9_tela_criar_ambiente_plataforma.png](img/012_cloud9_tela_criar_ambiente_plataforma.png)
