@@ -113,41 +113,4 @@ git clone https://github.com/infobarbosa/cassandra-aws.git
 cd cassandra-aws/
 ```
 
-18. Execute o script `setup_cloud9_env.sh` conforme a seguir:
-```
-sh scripts/setup_cloud9_env.sh
-```
-
-Esse script executa algumas tarefas administrativas importantes para esse laboratório.
-- atualização de pacotes
-- instalação do jq
-- instalação do boto3
-- redimensionamento de disco
-
-O output será algo assim:
-
-```
-voclabs:~/environment $ cd cassandra-aws/
-voclabs:~/environment/cassandra-aws (main) $ sh scripts/setup_cloud9_env.sh
-### Atualizando o sistema ###
-Get:1 http://us-east-1.ec2.archive.ubuntu.com/ubuntu jammy InRelease [270 kB]
-Get:2 http://security.ubuntu.com/ubuntu jammy-security InRelease [110 kB]       
-...
-```
-19. Ao término da execução, é possível conferir o tamanho do disco através do comando `df -h`:
-
-Output:
-
-```
-voclabs:~/environment/cassandra-aws (main) $ df -h
-Filesystem       Size  Used Avail Use% Mounted on
-/dev/root        146G  6.6G  139G   5% /
-tmpfs            3.9G     0  3.9G   0% /dev/shm
-tmpfs            1.6G  876K  1.6G   1% /run
-tmpfs            5.0M     0  5.0M   0% /run/lock
-/dev/nvme0n1p15  105M  6.1M   99M   6% /boot/efi
-tmpfs            784M  4.0K  784M   1% /run/user/1000
-voclabs:~/environment/cassandra-aws (main) $ 
-```
-
 Parabéns! Seu ambiente Cloud9 está pronto pra uso!
